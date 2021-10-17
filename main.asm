@@ -39,18 +39,17 @@ _main:
 	cmp 	eax, 0
 	je 		error
 	mov 	ebx, eax
-	mov 	ecx, 4					; i = 2
+	mov 	ecx, 2					; i = 2
 circleEratosphen:
-	mov 	eax, ecx 				; j = i
-	inc 	dword [ebx + eax] 		; ++(mem[j])
-	
-	inc 	edx						; ++k
-	mul 	dword edx				; j *= k
-	cmp 	dword edx, 0
-	jne 	iter
-	cmp 	eax, [N]			
-	jl 		circleEratosphen 		; while(j < N)
+	mov 	eax, ecx 				; j = i + i
+	add 	eax, ecx
 iter:
+	cmp 	eax, [N]
+	jge		iter_end 					; while(j < N)
+	inc 	dword [ebx + eax] 		; ++(mem[j])
+	add 	eax, ecx
+	jmp 	iter
+iter_end:
 	inc 	ecx 					; ++i
 	cmp 	dword ecx, [N] 			
     jl 		circleEratosphen 		; while(i < N)
@@ -109,5 +108,5 @@ success_message:
 	db  	'Fill memory successfully',10
 success_message_end:
 
-N: 	dd		 0x2FFFFFFF ;
+N: 	dd		 0xF ;
 ;----------------------------------------------------------------
