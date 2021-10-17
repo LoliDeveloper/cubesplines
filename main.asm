@@ -14,9 +14,9 @@ heapPtr:	resd 	1
 
     section .text
 ;--------------------------------CONST---------------------------
-skip_message:
+nomemory_message:
 	db		'No memory',10
-skip_message_end:
+nomemory_message_end:
 
 error_message:
 	db		'Error happend',10
@@ -88,8 +88,8 @@ skip:
 	; WriteFile( hstdOut, message, length(message), &bytes, 0);
     push 	0
     push 	0
-    push 	(skip_message_end - skip_message)
-    push 	skip_message
+    push 	(nomemory_message_end - nomemory_message)
+    push 	nomemory_message
     push 	dword [hStdOut]
     call 	_WriteFile@20
     jmp 	end
