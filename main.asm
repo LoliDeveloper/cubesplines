@@ -53,7 +53,7 @@ _main:
 	cmp 	eax, 0
 	je 		error
 	
-    ; DWORD  	bytes;    
+    ; DWORD  	bytes;
     mov     ebp, esp
     sub     esp, 4
   
