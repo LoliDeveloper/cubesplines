@@ -2,6 +2,8 @@
 Project in institute
 NASM For Windows
 
+<h1>PROJECT ISN'T DONE YET<br>IF YOU RUN IT AND YOU PC IS BLOW UP, I WARNED YOU</h1>
+
 <h1>Requirements:</h1>
 1. NASM: https://www.nasm.us/<br/>
 2. Find all using dll loctions: https://www.google.com/<br/>
