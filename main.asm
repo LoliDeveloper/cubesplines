@@ -45,7 +45,7 @@ circleEratosphen:
 	add 	eax, ecx
 iter:
 	cmp 	eax, [N]
-	jge		iter_end 					; while(j < N)
+	jge		iter_end 				; while(j < N)
 	inc 	dword [ebx + eax] 		; ++(mem[j])
 	add 	eax, ecx
 	jmp 	iter
@@ -54,7 +54,7 @@ iter_end:
 	cmp 	dword ecx, [N] 			
     jl 		circleEratosphen 		; while(i < N)
 
-    ; WriteFile( hstdOut, message, length(message), &bytes, 0);
+    ; WriteFile( hstdOut, &message, length(message), &bytes, 0);
     push 	0
     push 	0
     push 	(success_message_end - success_message)
@@ -64,8 +64,44 @@ iter_end:
 
     xor 	ecx, ecx
     ;main code
+    print_loop:
+    inc 	ecx
+    cmp 	byte [ecx + ebx], 0
+    jne 		print_loop
+    cmp 	ecx, [N]
+    jge 	print_loop
 
+    push 	ecx
+    push 	ebp
+    sub 	esp, 10
+    mov 	ebp, esp
+    mov 	eax, ecx
 
+    ; WriteFile( hstdOut, &message, length(message), &bytes, 0);
+convertToStr:
+    xor 	edx, edx
+    xor		ecx, ecx
+    ;mov 	
+
+    push 	ebp
+    mov 	ebp, 10
+    div 	ebp
+    pop 	ebp
+
+    inc 	ecx
+    mov 	dl,  [ebp + ecx]
+    cmp 	edx, 0
+    jne 	convertToStr
+    push 	0
+    push 	0
+    push 	ecx
+    push 	ebx
+    push 	dword [hStdOut]
+    call 	_WriteFile@20 			;is zero
+    pop 	ebp
+    pop 	ecx
+    cmp 	ecx, [N]
+    jnge 	print_loop
     jmp 	end
 skip:
 	; WriteFile( hstdOut, message, length(message), &bytes, 0);
@@ -105,7 +141,7 @@ error_message:
 error_message_end:
 
 success_message:
-	db  	'Fill memory successfully',10
+	db  	'Eratosphen successfully',10
 success_message_end:
 
 N: 	dd		 0xF ;
