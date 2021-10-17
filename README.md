@@ -16,4 +16,7 @@ NASM For Windows
 2. You need gcc installed and know you kernel32 path:<br/>
     gcc main.obj C:\\Windows\System32\Kernel32.dll -o app.exe<br/><br/>
 3. After success you can run app by write: <br/>
-    app<br/>
+    app<br/><br/>
+    
+<h2><u>P.S.</u></h2>
+You can use Makefile, but maybe it will need correct for you own needs.<br/>
