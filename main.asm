@@ -38,14 +38,22 @@ _main:
 	call 	_HeapAlloc
 	cmp 	eax, 0
 	je 		error
-
-	mov 	ecx, 0	; i = 0
+	mov 	ebx, eax
+	mov 	ecx, 4					; i = 2
 circleEratosphen:
+	mov 	eax, ecx 				; j = i
+	inc 	dword [ebx + eax] 		; ++(mem[j])
 	
-	
-	inc ecx 		; ++i
-	cmp ecx, [N] 	; i < N
-    jnge 	circleEratosphen
+	inc 	edx						; ++k
+	mul 	dword edx				; j *= k
+	cmp 	dword edx, 0
+	jne 	iter
+	cmp 	eax, [N]			
+	jl 		circleEratosphen 		; while(j < N)
+iter:
+	inc 	ecx 					; ++i
+	cmp 	dword ecx, [N] 			
+    jl 		circleEratosphen 		; while(i < N)
 
     ; WriteFile( hstdOut, message, length(message), &bytes, 0);
     push 	0
@@ -53,7 +61,7 @@ circleEratosphen:
     push 	(success_message_end - success_message)
     push 	success_message 
     push 	dword [hStdOut]
-    call 	_WriteFile@20 ;Fill successfully
+    call 	_WriteFile@20 			;Fill successfully
 
     xor 	ecx, ecx
     ;main code
