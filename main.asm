@@ -35,7 +35,7 @@ _main:
     call    _GetStdHandle@4 ; hStdOut = GetstdHandle( STD_OUTPUT_HANDLE)
     mov     [hStdOut], eax  
 
-	; heap create 
+	; heap create
 	; HeapCreate([in] DWORD  flOptions,  [in] SIZE_T dwInitialSize,  [in] SIZE_T dwMaximumSize);
 	push 	dword 	0
 	push 	dword 	0
