@@ -13,21 +13,7 @@ memptr:		resd 	1
 heapPtr:	resd 	1
 
     section .text
-;--------------------------------CONST---------------------------
-nomemory_message:
-	db		'No memory',10
-nomemory_message_end:
 
-error_message:
-	db		'Error happend',10
-error_message_end:
-
-success_message:
-	db  	'Fill memory successfully',10
-success_message_end:
-
-N: 	dd		 0x2FFFFFFF
-;----------------------------------------------------------------
 
 _main:
 
@@ -52,24 +38,14 @@ _main:
 	call 	_HeapAlloc
 	cmp 	eax, 0
 	je 		error
+
+	mov 	ecx, 0	; i = 0
+circleEratosphen:
 	
-    ; DWORD  	bytes;
-    mov     ebp, esp
-    sub     esp, 4
-  
-
-	push 	dword [N]
-	call 	_malloc ;malloc(0x3FFFFFFF)
-
-	cmp 	eax, 0
-	je 		skip
-	mov 	ecx, 0
-circleFill:
-	mov 	byte [eax], 0
-	inc 	eax
-	inc 	ecx
-	cmp 	ecx, [N]
-    jnge 	circleFill
+	
+	inc ecx 		; ++i
+	cmp ecx, [N] 	; i < N
+    jnge 	circleEratosphen
 
     ; WriteFile( hstdOut, message, length(message), &bytes, 0);
     push 	0
@@ -111,3 +87,19 @@ end:
 
     ; never here
     hlt
+
+    ;--------------------------------CONST---------------------------
+nomemory_message:
+	db		'No memory',10
+nomemory_message_end:
+
+error_message:
+	db		'Error happend',10
+error_message_end:
+
+success_message:
+	db  	'Fill memory successfully',10
+success_message_end:
+
+N: 	dd		 0x2FFFFFFF ;
+;----------------------------------------------------------------
