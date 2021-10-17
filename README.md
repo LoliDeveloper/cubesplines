@@ -2,7 +2,7 @@
 Project in institute
 NASM For Windows
 
-<h1>PROJECT ISN'T DONE YET<br>IF YOU RUN IT AND YOU PC IS BLOW UP, I WARNED YOU</h1>
+<h1>PROJECT ISN'T DONE YET<br>IF YOU RUN PROGRAM AND YOUR PC EXPLODES, I WARNED YOU</h1>
 
 <h1>Requirements:</h1>
 1. NASM: https://www.nasm.us/<br/>
