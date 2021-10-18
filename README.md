@@ -4,12 +4,12 @@ NASM For Windows
 
 <h1>PROJECT ISN'T DONE YET<br>IF YOU RUN PROGRAM AND YOUR PC EXPLODES, I WARNED YOU</h1>
 
-<h1>Requirements:</h1>
+<h2>Requirements:</h2>
 1. NASM: https://www.nasm.us/<br/>
 2. Find all using dll loctions: https://www.google.com/<br/>
 3. Install gcc (or any linker)
 
-<h1>Compile and run</h1>
+<h2>Compile and run</h2>
 0. Open console in folder with main.asm<br/><br/>
 1. You need NASM installed:<br/>
     nasm -f win32 main.asm<br/><br/>
