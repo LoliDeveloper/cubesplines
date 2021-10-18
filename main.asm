@@ -8,8 +8,8 @@
     section .bss
 
 hStdOut: 	resd 	1
-memptr:		resd 	1
 heapPtr:	resd 	1
+convertDDBuffer: resb 10
 
     section .text
 
@@ -61,47 +61,23 @@ iter_end:
     push 	dword [hStdOut]
     call 	_WriteFile@20 			;Fill successfully
 
+
     xor 	ecx, ecx
+    xor     eax, eax
+    xor     edx, edx
+    xor     ebp, ebp
     ;main code
     print_loop:
-    inc 	ecx
-    cmp 	byte [ecx + ebx], 0
-    jne 		print_loop
-    cmp 	ecx, [N]
-    jge 	print_loop
-
-    push 	ecx
-    push 	ebp
-    sub 	esp, 10
-    mov 	ebp, esp
-    mov 	eax, ecx
 
     ; WriteFile( hstdOut, &message, length(message), &bytes, 0);
+    xor     ecx, ecx
 convertToStr:
-    xor 	edx, edx
-    xor		ecx, ecx
-    ;mov 	
 
-    push 	ebp
-    mov 	ebp, 10
-    div 	ebp
-    pop 	ebp
-
-    inc 	ecx
-    mov 	dl,  [ebp + ecx]
-    cmp 	edx, 0
-    jne 	convertToStr
-    push 	0
-    push 	0
-    push 	ecx
-    push 	ebx
+    push 	edx
     push 	dword [hStdOut]
     call 	_WriteFile@20 			;is zero
-    pop 	ebp
-    pop 	ecx
-    cmp 	ecx, [N]
-    jnge 	print_loop
-    jmp 	end
+
+
 skip:
 	; WriteFile( hstdOut, message, length(message), &bytes, 0);
     push 	0
