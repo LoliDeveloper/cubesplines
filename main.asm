@@ -2,7 +2,6 @@
     extern  _GetStdHandle@4
     extern  _WriteFile@20
     extern  _ExitProcess@4
-    extern _malloc
     extern _HeapCreate
     extern _HeapAlloc
 
