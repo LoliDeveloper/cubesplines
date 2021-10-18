@@ -59,24 +59,36 @@ iter_end:
     push 	(success_message_end - success_message)
     push 	success_message 
     push 	dword [hStdOut]
-    call 	_WriteFile@20 			;Fill successfully
+    call 	_WriteFile@20 			;Eratosphen successfully
 
 
-    xor 	ecx, ecx
-    xor     eax, eax
-    xor     edx, edx
-    xor     ebp, ebp
+    
     ;main code
-    print_loop:
+    ;ebx contains ptr to array
+    xor     ecx, ecx ;i = 0
+print_loop:
+    cmp     ecx, [N]
+    jge     end
 
-    ; WriteFile( hstdOut, &message, length(message), &bytes, 0);
-    xor     ecx, ecx
-convertToStr:
+    mov     eax, [ebx + ecx]
+    cmp     eax, 0
+    jne print_loop_continue
+    ;eax == 0
+    call    convertECXToStr ;return eax with pointer to converted string
+    mov     edx, eax
+    add     edx, 10
+    sub     edx, convertDDBuffer
 
-    push 	edx
-    push 	dword [hStdOut]
-    call 	_WriteFile@20 			;is zero
+    push    0
+    push    0
+    push    edx
+    push    eax
+    push    dword [hStdOut]
+    call    _WriteFile@20
 
+print_loop_continue:
+    inc     ecx
+    jmp     print_loop
 
 skip:
 	; WriteFile( hstdOut, message, length(message), &bytes, 0);
@@ -120,4 +132,10 @@ success_message:
 success_message_end:
 
 N: 	dd		 0xF ;
+;----------------------------------------------------------------
+
+;----------------------------------PROCS-------------------------
+convertECXToStr:
+    
+convertECXToStr_end:
 ;----------------------------------------------------------------
