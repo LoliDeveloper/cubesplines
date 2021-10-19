@@ -75,9 +75,9 @@ print_loop:
     jne print_loop_continue
     ;eax == 0
     call    convertECXToStr ;return eax with pointer to converted string
-    mov     edx, eax
+    mov     edx, convertDDBuffer
     add     edx, 10
-    sub     edx, convertDDBuffer
+    sub     edx, eax
 
     push    0
     push    0
@@ -135,7 +135,23 @@ N: 	dd		 0xF ;
 ;----------------------------------------------------------------
 
 ;----------------------------------PROCS-------------------------
+;convert ecx to string in the same memory
 convertECXToStr:
+    push    ebx
+    push    ecx
+    push    edx
+    ;----------------------------------------
+    xor     edx, edx
+    mov     eax, ecx
+    mov     ebx, 10
+    div     ebx
     
+    mov     byte [convertDDBuffer + 9], 49
+    mov     eax, convertDDBuffer+9
+    ;----------------------------------------
+    pop     edx
+    pop     ecx
+    pop     ebx
+    ret
 convertECXToStr_end:
 ;----------------------------------------------------------------
